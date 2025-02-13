@@ -6,7 +6,7 @@ const Users = () => {
     data: usuarios,
     isLoading,
     error,
-  } = useFetch("https://jsonplaceholder.org/users");
+  } = useFetch("https://jsonplaceholder.org/userss");
 
   return (
     <div>
@@ -24,6 +24,7 @@ const Users = () => {
           })}
         </div>
       )}
+      {error && <h2>{error.message}</h2>}
     </div>
   );
 };

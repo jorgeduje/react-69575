@@ -12,7 +12,7 @@ export const useFetch = (endpoint, valorInicial = []) => {
       getData
         .then((res) => res.json())
         .then((res) => setData(res))
-        .catch((error) => setError(error))
+        .catch(() => setError({ status: 500, message: "Error en el servidor" }))
         .finally(() => setIsLoading(false));
     }, 2000);
   }, [endpoint]);
