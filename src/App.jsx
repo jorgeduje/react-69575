@@ -1,21 +1,11 @@
-import { useState } from "react";
-import Counter from "./components/common/counter/Counter";
-import { Navbar } from "./components/layouts/navbar/Navbar";
-import { ItemListContainer } from "./components/pages/itemListContainer/ItemListContainer";
+import Comments from "./components/Comments";
+import Users from "./components/Users";
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
-
-  const changeMode = () => {
-    setDarkMode(!darkMode);
-  };
-
   return (
     <div>
-      {/* <button onClick={changeMode}>Cambiar modo</button> */}
-      {/* <Navbar /> */}
-      <ItemListContainer />
-      {/* <Counter darkMode={darkMode} /> */}
+      <Users />
+      {/* <Comments /> */}
     </div>
   );
 }
