@@ -6,14 +6,14 @@ export let products = [
     description: "estas son las mejores",
     imageUrl:
       "https://res.cloudinary.com/dnqfh2chg/image/upload/v1686581567/images_teykwq.jpg",
-    stock: 12,
+    stock: 9,
     category: "deportivas",
   },
   {
     id: "2",
     title: "wilson advance",
     price: 14500,
-    stock: 5,
+    stock: 3,
     description: "Ultra livianas y cuentan con camara de aire",
     category: "deportivas",
     imageUrl:
@@ -23,7 +23,7 @@ export let products = [
     id: "3",
     title: "Puma",
     price: 19000,
-    stock: 5,
+    stock: 6,
     description:
       "Las clasicas zapatillas que van para cualquier momento del dia",
     category: "urbanas",

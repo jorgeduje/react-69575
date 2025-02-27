@@ -1,31 +1,34 @@
-import { useState, useEffect } from "react";
+import { useContext, useState } from "react";
+import { CartContext } from "../../../context/CartContext";
 
-const Counter = ({ darkMode }) => {
-  const [contador, setContador] = useState(0);
-  const [name, setName] = useState("pepe");
-  const cambiarNombre = () => {
-    setName("juan");
-  };
+const Counter = ({ item }) => {
+  const [contador, setContador] = useState(1);
+  const { addToCart } = useContext(CartContext);
 
   const sumar = () => {
-    setContador(contador + 1);
+    if (item.stock > contador) {
+      setContador(contador + 1);
+    } else {
+      alert("stock maximo");
+    }
   };
   const restar = () => {
-    setContador(contador - 1);
+    if (contador > 1) {
+      setContador(contador - 1);
+    }
   };
 
-  // console.log("peticion fuera del effect");
-
-  useEffect(() => {
-    console.log("Una peticion a un servidor que esta en japón");
-  }, [name, darkMode]); // array de dependencias
+  const onAdd = () => {
+    let obj = { ...item, quantity: contador };
+    addToCart(obj);
+  };
 
   return (
-    <div>
+    <div style={{ padding: "40px" }}>
       <button onClick={restar}>restar</button>
       <h2>{contador}</h2>
       <button onClick={sumar}>Sumar</button>
-      <button onClick={cambiarNombre}>Cambiar nombre</button>
+      <button onClick={onAdd}>Agregar al carrito</button>
     </div>
   );
 };
