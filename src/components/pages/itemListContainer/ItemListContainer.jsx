@@ -4,7 +4,7 @@ import { ProductCard } from "../../common/productCard/ProductCard";
 import { useParams } from "react-router";
 import { db } from "../../../firebaseConfig";
 
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 
 export const ItemListContainer = () => {
   const [items, setItems] = useState([]);
@@ -12,7 +12,12 @@ export const ItemListContainer = () => {
 
   useEffect(() => {
     let refCollection = collection(db, "products");
-    const getProducts = getDocs(refCollection);
+    let consulta = refCollection;
+    if (name) {
+      consulta = query(refCollection, where("category", "==", name));
+    }
+    const getProducts = getDocs(consulta);
+
     getProducts
       .then((res) => {
         const nuevoArray = res.docs.map((elemento) => {
