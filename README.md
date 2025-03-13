@@ -10,3 +10,7 @@
 ```
 npm i talcosa
 ```
+
+```javascript
+const x = "pepe";
+```
