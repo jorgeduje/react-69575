@@ -7,6 +7,7 @@ import { ItemListContainer } from "./components/pages/itemListContainer/ItemList
 import { BrowserRouter, Routes, Route } from "react-router";
 import { CartContextProvider } from "./context/CartContext";
 import { Toaster } from "sonner";
+import Footer from "./components/layouts/footer/Footer";
 function App() {
   return (
     <BrowserRouter>
@@ -22,6 +23,7 @@ function App() {
 
           <Route path="*" element={<h2>404 Not found</h2>} />
         </Routes>
+        <Footer />
       </CartContextProvider>
     </BrowserRouter>
   );
