@@ -6,9 +6,11 @@ import { ItemListContainer } from "./components/pages/itemListContainer/ItemList
 
 import { BrowserRouter, Routes, Route } from "react-router";
 import { CartContextProvider } from "./context/CartContext";
+import { Toaster } from "sonner";
 function App() {
   return (
     <BrowserRouter>
+      <Toaster richColors duration={2000} />
       <CartContextProvider>
         <Navbar />
         <Routes>

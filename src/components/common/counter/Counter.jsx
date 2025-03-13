@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../../../context/CartContext";
+import { toast } from "sonner";
 
 const Counter = ({ item }) => {
   const [contador, setContador] = useState(1);
@@ -21,6 +22,7 @@ const Counter = ({ item }) => {
   const onAdd = () => {
     let obj = { ...item, quantity: contador };
     addToCart(obj);
+    toast.success("Producto agregado al carrito", { duration: 5000 });
   };
 
   return (
