@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router";
 import { CartContext } from "../../../context/CartContext";
+import { Button } from "@mui/material";
 
 const Cart = () => {
   const { cart, resetCart, removeById, getTotalAmount } =
@@ -24,24 +25,40 @@ const Cart = () => {
             <div
               key={product.id}
               style={{
-                border: "2px solid black",
+                border: "2px solid steelblue",
                 display: "flex",
                 justifyContent: "space-between",
-                width: "300px",
+                width: "400px",
                 alignItems: "center",
+                padding: "12px",
               }}
             >
               <h2>{product.title}</h2>
               <h3>${product.price}</h3>
               <h3>x{product.quantity}</h3>
-              <button onClick={() => removeById(product.id)}>Eliminar</button>
+              <Button variant="outlined" onClick={() => removeById(product.id)}>
+                Eliminar
+              </Button>
             </div>
           );
         })}
       </div>
       <h2>El total a pagar es ${total}</h2>
-      <button onClick={resetCart}>Vaciar carrito</button>
-      <Link to="/checkout">Finalizar compra</Link>
+      <Button variant="outlined" onClick={resetCart}>
+        Vaciar carrito
+      </Button>
+      <Button variant="contained">
+        <Link
+          style={{
+            textDecoration: "none",
+            color: "white",
+            fontWeight: "bold",
+          }}
+          to="/checkout"
+        >
+          Finalizar compra
+        </Link>
+      </Button>
     </div>
   );
 };
