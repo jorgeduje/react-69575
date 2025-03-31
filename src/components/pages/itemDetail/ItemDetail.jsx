@@ -2,15 +2,20 @@ import { useEffect, useState } from "react";
 import { products } from "../../../products";
 import { useParams } from "react-router";
 import Counter from "../../common/counter/Counter";
+import { db } from "../../../firebaseConfig";
+import { collection, getDoc, doc } from "firebase/firestore";
 
 const ItemDetail = () => {
   const [item, setItem] = useState({});
 
-  const { id } = useParams(); // { propiedad: valor }
+  const { id } = useParams();
 
   useEffect(() => {
-    let product = products.find((elemento) => elemento.id === id);
-    setItem(product);
+    let refCollection = collection(db, "products");
+    let refDoc = doc(refCollection, id);
+    getDoc(refDoc).then((res) => {
+      setItem({ id: res.id, ...res.data() });
+    });
   }, [id]);
 
   return (

@@ -1,5 +1,8 @@
 import { Button, TextField } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { db } from "../../../firebaseConfig";
+import { addDoc, collection } from "firebase/firestore";
+import { CartContext } from "../../../context/CartContext";
 
 const Checkout = () => {
   const [userInfo, setUserInfo] = useState({
@@ -8,10 +11,25 @@ const Checkout = () => {
     telefono: "",
   });
 
+  const { cart, getTotalAmount } = useContext(CartContext);
+
   const funcionFormulario = (evento) => {
     evento.preventDefault();
     // nos conectamos con el backend
-    console.log(userInfo);
+    let ordersCollection = collection(db, "orders");
+
+    // la info del comprador
+    // la info de lo que estoy comprando
+    // la info de lo que estoy pagando
+
+    let totalAmount = getTotalAmount();
+    let order = {
+      buyer: userInfo,
+      items: cart,
+      total: totalAmount,
+    };
+
+    addDoc(ordersCollection, order);
   };
 
   const funcionInputs = (evento) => {
