@@ -5,11 +5,7 @@ import { useParams } from "react-router";
 
 export const ItemListContainer = () => {
   const [items, setItems] = useState([]);
-  const { name } = useParams(); // {x: 1, b: 2 } {}.c ---> undefined
-
-  // undefined ---> home ---> ver todos
-  // string ----> categoria --> quiero filtrar
-
+  const { name } = useParams();
   useEffect(() => {
     const getProducts = new Promise((resolve, reject) => {
       let isAdmin = true;
