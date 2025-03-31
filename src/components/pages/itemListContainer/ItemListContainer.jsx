@@ -28,9 +28,19 @@ export const ItemListContainer = () => {
   return (
     <section>
       <h2>Mis productos</h2>
-      {items.map((item) => {
-        return <ProductCard key={item.id} item={item} />;
-      })}
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "20px",
+          // justifyContent: "center",
+          padding: "20px",
+        }}
+      >
+        {items.map((item) => {
+          return <ProductCard key={item.id} item={item} />;
+        })}
+      </div>
     </section>
   );
 };

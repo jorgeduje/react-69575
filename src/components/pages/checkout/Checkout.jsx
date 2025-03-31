@@ -1,3 +1,4 @@
+import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 
 const Checkout = () => {
@@ -19,28 +20,49 @@ const Checkout = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={funcionFormulario}>
-        <input
+    <div
+      style={{
+        marginTop: "20px",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <form
+        onSubmit={funcionFormulario}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "300px",
+          gap: "20px",
+        }}
+      >
+        <TextField
+          variant="outlined"
           type="text"
-          placeholder="nombre"
+          label="nombre"
           name="nombre"
           onChange={funcionInputs}
         />
-        <input
+        <TextField
+          variant="outlined"
           type="text"
-          placeholder="email"
+          label="email"
           name="email"
           onChange={funcionInputs}
         />
-        <input
+        <TextField
+          variant="outlined"
           type="text"
-          placeholder="telefono"
+          label="telefono"
           name="telefono"
           onChange={funcionInputs}
         />
-        <button>Enviar</button>
-        <button type="button">cancelar</button>
+        <Button variant="contained" type="submit">
+          Enviar
+        </Button>
+        <Button variant="outlined" type="button">
+          cancelar
+        </Button>
       </form>
     </div>
   );
