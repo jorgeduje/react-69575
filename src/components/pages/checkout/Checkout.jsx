@@ -1,7 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import { useContext, useState } from "react";
 import { db } from "../../../firebaseConfig";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { CartContext } from "../../../context/CartContext";
 
 const Checkout = () => {
@@ -11,7 +11,15 @@ const Checkout = () => {
     telefono: "",
   });
 
-  const { cart, getTotalAmount } = useContext(CartContext);
+  // false y true
+  // falsy --> null NaN undefined "" 0
+  // truthy --> "dsada" 123 [] {}
+  // if(){
+
+  // }
+  const [orderId, setOrderId] = useState(null); // "dsadasdsad"
+
+  const { cart, getTotalAmount, resetCart } = useContext(CartContext);
 
   const funcionFormulario = (evento) => {
     evento.preventDefault();
@@ -29,7 +37,17 @@ const Checkout = () => {
       total: totalAmount,
     };
 
-    addDoc(ordersCollection, order);
+    addDoc(ordersCollection, order).then((res) => {
+      setOrderId(res.id);
+      resetCart();
+    });
+
+    let productsCollection = collection(db, "products");
+
+    order.items.forEach((product) => {
+      let refDoc = doc(productsCollection, product.id);
+      updateDoc(refDoc, { stock: product.stock - product.quantity });
+    });
   };
 
   const funcionInputs = (evento) => {
@@ -45,43 +63,47 @@ const Checkout = () => {
         justifyContent: "center",
       }}
     >
-      <form
-        onSubmit={funcionFormulario}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "300px",
-          gap: "20px",
-        }}
-      >
-        <TextField
-          variant="outlined"
-          type="text"
-          label="nombre"
-          name="nombre"
-          onChange={funcionInputs}
-        />
-        <TextField
-          variant="outlined"
-          type="text"
-          label="email"
-          name="email"
-          onChange={funcionInputs}
-        />
-        <TextField
-          variant="outlined"
-          type="text"
-          label="telefono"
-          name="telefono"
-          onChange={funcionInputs}
-        />
-        <Button variant="contained" type="submit">
-          Enviar
-        </Button>
-        <Button variant="outlined" type="button">
-          cancelar
-        </Button>
-      </form>
+      {orderId ? (
+        <h2>Gracias por tu compra, tu comprobante es: {orderId}</h2>
+      ) : (
+        <form
+          onSubmit={funcionFormulario}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "300px",
+            gap: "20px",
+          }}
+        >
+          <TextField
+            variant="outlined"
+            type="text"
+            label="nombre"
+            name="nombre"
+            onChange={funcionInputs}
+          />
+          <TextField
+            variant="outlined"
+            type="text"
+            label="email"
+            name="email"
+            onChange={funcionInputs}
+          />
+          <TextField
+            variant="outlined"
+            type="text"
+            label="telefono"
+            name="telefono"
+            onChange={funcionInputs}
+          />
+          <Button variant="contained" type="submit">
+            Enviar
+          </Button>
+          <Button variant="outlined" type="button">
+            cancelar
+          </Button>
+        </form>
+      )}
     </div>
   );
 };
