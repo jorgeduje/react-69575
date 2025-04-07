@@ -1,59 +1,45 @@
-import { useEffect, useState } from "react";
-
-import { ProductCard } from "../../common/productCard/ProductCard";
-import { useParams } from "react-router";
-import { db } from "../../../firebaseConfig";
-import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
+import { useState } from "react";
 
 export const ItemListContainer = () => {
-  const [items, setItems] = useState([]);
-  const { name } = useParams();
+  const [userInfo, setUserInfo] = useState({
+    nombre: "",
+    apellido: "",
+  });
 
-  // name me permite saber si quiero o no hacer un filtrado
-  useEffect(() => {
-    let productsCollection = collection(db, "products");
-    let consulta = productsCollection;
-    if (name) {
-      let productsCollectionFiltered = query(
-        productsCollection,
-        where("category", "==", name)
-      );
-      consulta = productsCollectionFiltered;
-    }
-
-    getDocs(consulta).then((res) => {
-      let nuevoArray = res.docs.map((elemento) => {
-        return { id: elemento.id, ...elemento.data() };
-      });
-      setItems(nuevoArray);
-    });
-  }, [name]);
-
-  // const cargarProductos = () => {
-  //   let refCollection = collection(db, "products");
-
-  //   products.forEach((elemento) => {
-  //     addDoc(refCollection, elemento);
-  //   });
-  // };
+  const funcionDelForm = (event) => {
+    event.preventDefault();
+    console.log(userInfo);
+  };
+  const funcionDeLosInputs = (event) => {
+    const { value, name } = event.target;
+    // console.log("lo que escribo ", value);
+    // console.log("donde lo escribo", name); // "apellido"
+    setUserInfo({ ...userInfo, [name]: value });
+  };
 
   return (
-    <section>
-      {/* <button onClick={cargar}>cargar productos</button> */}
-      <h2>Mis productos</h2>
-      {/* <button onClick={cargarProductos}> Cargar muchos productos</button> */}
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "20px",
-          padding: "20px",
-        }}
-      >
-        {items.map((item) => {
-          return <ProductCard key={item.id} item={item} />;
-        })}
-      </div>
-    </section>
+    <div>
+      <form onSubmit={funcionDelForm}>
+        <input
+          type="text"
+          placeholder="ingresa tu nombre"
+          name="nombre"
+          onChange={funcionDeLosInputs}
+        />
+        <input
+          type="text"
+          placeholder="ingresa tu apellido"
+          name="apellido"
+          onChange={funcionDeLosInputs}
+        />
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
   );
 };
+
+// const persona ={
+//   edad: 22
+// }
+// const {edad} = persona
+// edad
