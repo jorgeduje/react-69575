@@ -6,7 +6,7 @@ export const Navbar = () => {
       style={{
         display: "flex",
         justifyContent: "space-between",
-        backgroundColor: "peru",
+        backgroundColor: "steelblue",
         padding: "20px",
       }}
     >
