@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../../../context/CartContext";
 import { Box, Button } from "@mui/material";
+import { toast } from "sonner";
 
 const Counter = ({ item }) => {
   const [contador, setContador] = useState(1);
