@@ -3,10 +3,6 @@ import { useEffect, useState } from "react";
 import { ProductCard } from "../../common/productCard/ProductCard";
 import { useParams } from "react-router";
 import { db } from "../../../firebaseConfig";
-<<<<<<< HEAD
-
-=======
->>>>>>> clase-7/firebase-1
 import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 
 export const ItemListContainer = () => {
@@ -15,29 +11,6 @@ export const ItemListContainer = () => {
 
   // name me permite saber si quiero o no hacer un filtrado
   useEffect(() => {
-<<<<<<< HEAD
-    let refCollection = collection(db, "products");
-    let consulta = refCollection;
-    if (name) {
-      consulta = query(refCollection, where("category", "==", name));
-    }
-    const getProducts = getDocs(consulta);
-
-    getProducts
-      .then((res) => {
-        const nuevoArray = res.docs.map((elemento) => {
-          return { id: elemento.id, ...elemento.data() };
-        });
-        setItems(nuevoArray);
-      })
-      .catch((error) => console.log(error));
-  }, [name]);
-
-  // const cargar = () => {
-  //   let refCollection = collection(db, "products");
-  //   products.forEach((product) => {
-  //     addDoc(refCollection, product);
-=======
     let productsCollection = collection(db, "products");
     let consulta = productsCollection;
     if (name) {
@@ -61,7 +34,6 @@ export const ItemListContainer = () => {
 
   //   products.forEach((elemento) => {
   //     addDoc(refCollection, elemento);
->>>>>>> clase-7/firebase-1
   //   });
   // };
 
